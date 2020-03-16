@@ -1,0 +1,345 @@
+// Section One
+.section-one {
+  background-color: $primaryColor;
+
+  .container {
+    // Small Screen
+    img {
+      display: none;
+    }
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h1 {
+      color: $lightColor;
+      font-size: $bigFontSmallScreen;
+    }
+    p {
+      color: $lightColor;
+      font-size: $MediumfontSmallScreen;
+      margin: 30px 0;
+    }
+    button {
+      font-size: $Mediumfont;
+      padding: 15px 20px;
+      color: $primaryColor;
+      background-color: $lightColor;
+      border: none;
+      font-weight: bold;
+      border-radius: 5px;
+      text-transform: uppercase;
+    }
+
+    // Media Query at Medium Screen
+    @include mQ($mediumScreen) {
+      display: flex;
+      flex-direction: row;
+      height: calc(100vh - 70px);
+
+      // flex-wrap: wrap;
+      img {
+        display: block;
+        width: auto;
+        height: 100%;
+      }
+      div {
+        padding: 20px;
+        margin: auto;
+      }
+    }
+
+    // Media Query Large Screen
+    @include mQ($largeScreen) {
+      h1 {
+        font-size: $bigFont;
+      }
+      p {
+        font-size: $Mediumfont;
+        margin: 30px 0;
+      }
+    }
+  }
+}
+
+/***********************************************************/
+
+// Section two
+.section-two {
+  // Small Screen
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  form,
+  h2,
+  button {
+    margin: 20px 0;
+  }
+
+  h2 {
+    color: $secondaryColor;
+    font-size: $bigFontSmallScreen;
+    font-weight: bold;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      margin: 0 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-weight: bold;
+      width: 100%;
+      input,
+      select {
+        margin: 10px 20px;
+        height: 40px;
+        width: 100%;
+        border: none;
+        border: 0.5px solid $secondaryColor;
+        font-weight: bold;
+        padding: 0 10px;
+      }
+    }
+  }
+  button {
+    width: 100%;
+    padding: 20px 0px;
+    color: $lightColor;
+    background-color: $secondaryColor;
+    border: none;
+    text-transform: uppercase;
+    font-size: $Mediumfont;
+    cursor: pointer;
+  }
+
+  // Medium Screen
+  @include mQ($mediumScreen) {
+    form,
+    h2,
+    button {
+      margin: 30px 0;
+    }
+    form {
+      display: flex;
+      flex-direction: row;
+      label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    button {
+      width: auto;
+      padding: 20px 60px;
+    }
+  }
+}
+
+/***********************************************************/
+
+// Section three
+
+.section-three {
+  // Small Screen
+  background-color: #f3fefc;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+
+    h2,
+    p,
+    .card-wrapper {
+      margin: 30px 0;
+    }
+    div {
+      div {
+        padding: 30px;
+        margin: 40px 20px;
+        background-color: $lightColor;
+        box-shadow: 13px 9px 10px -8px rgba(191, 191, 191, 1);
+        img {
+          // color: $lightColor;
+          background-color: $darkColor;
+          padding: 10px;
+          border-radius: 50px;
+          margin-top: -100px;
+        }
+        h3 {
+          margin-top: 30px;
+          color: $primaryColor;
+        }
+      }
+    }
+  }
+
+  // Media Query for Meidum Screen
+  @include mQ($mediumScreen) {
+    .container {
+      h2 {
+        font-size: $bigFont;
+      }
+      h2 {
+        font-size: $Mediumfont;
+      }
+
+      .card-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .card-container {
+          margin: 40px 10px;
+          width: calc(50% - 20px);
+        }
+      }
+    }
+  }
+
+  // Media Query for Large Screen
+  @include mQ($extraLargeScreen) {
+    .container {
+      h2 {
+        font-size: $bigFont;
+      }
+      h2 {
+        font-size: $Mediumfont;
+      }
+
+      .card-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .card-container {
+          margin: 40px 5px;
+          width: calc(25% - 10px);
+        }
+      }
+    }
+  }
+}
+
+/***********************************************************/
+
+// Section Four
+
+.section-four {
+  // Small Screen
+
+  margin: 100px 0;
+  .container {
+    display: flex;
+    background-color: $primaryColor;
+    padding: 50px 0;
+    background-image: url(../../src/img/background1.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    img {
+      display: none;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      text-align: center;
+
+      h3 {
+        color: $lightColor;
+        font-size: $Mediumfont;
+        margin: 20px;
+      }
+
+      button {
+        margin: 20px auto;
+        padding: 20px;
+        color: $secondaryColor;
+        background-color: $lightColor;
+        border: none;
+        text-transform: uppercase;
+        font-size: $MediumfontSmallScreen;
+        cursor: pointer;
+      }
+    }
+  }
+
+  // Media Query for Medium Screen
+
+  @include mQ($mediumScreen) {
+    .container {
+      padding: 30px 0;
+      img {
+        display: block;
+        width: 40%;
+        margin-top: -150px;
+      }
+      div {
+        justify-content: start;
+        text-align: left;
+        button {
+          margin: 20px auto 20px 20px;
+        }
+      }
+    }
+  }
+
+  // Media Query for Large Screen
+
+  @include mQ($largeScreen) {
+    .container {
+      div {
+        padding-left: 50px;
+      }
+    }
+  }
+}
+
+/***********************************************************/
+
+// Section Footer
+
+.footer {
+  padding: 30px 0;
+  background-color: $darkColor;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    h2,
+    p,
+    div {
+      margin: 20px 0;
+      color: $lightColor;
+    }
+    p {
+      span {
+        color: red;
+        font-size: 1.5rem;
+      }
+    }
+    div {
+      img {
+        cursor: pointer;
+        padding: 0 20px;
+      }
+    }
+  }
+
+  // Medium Screen Size
+  @include mQ($mediumScreen) {
+    .container {
+      flex-direction: row;
+      div {
+        img {
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+}

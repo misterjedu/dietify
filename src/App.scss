@@ -1,0 +1,153 @@
+// Colors
+$primaryColor: #e92b80;
+$secondaryColor: #1fc5ae;
+$lightenPrimaryColor: #ffeef6;
+$lightenSecondaryColor: #e3fffb;
+$lightColor: #ffffff;
+$darkColor: #000000;
+$lightDarkColor1: #2c2c2c;
+$lightDarkColor2: #474747;
+
+/***********************************************************/
+
+// Font-Size
+
+$bigFont: 3rem;
+$Mediumfont: 1.5rem;
+$bigFontSmallScreen: 2.5rem;
+$MediumfontSmallScreen: 1.3rem;
+
+// Screen sizes
+$mediumScreen: 768px;
+$largeScreen: 992px;
+$extraLargeScreen: 1200px;
+
+/***********************************************************/
+
+// Reset
+
+/***********************************************************/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+  color: $darkColor;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+/***********************************************************/
+
+/***********************************************************/
+// Mixins
+
+// Media Query Mixin
+@mixin mQ($arg) {
+  @media screen and (min-width: $arg) {
+    @content;
+  }
+}
+/***********************************************************/
+
+.container {
+  margin: 0 10px;
+  @include mQ($mediumScreen) {
+    margin: 0 40px;
+  }
+  @include mQ($largeScreen) {
+    margin: 0 60px;
+  }
+  @include mQ($extraLargeScreen) {
+    margin: 0 100px;
+  }
+}
+
+/***********************************************************/
+// NavBar
+.navbar {
+  color: $darkColor;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $MediumfontSmallScreen;
+
+  .brand-logo {
+    font-weight: bold;
+    font-size: 2.2rem;
+    margin: 20px 0;
+    @include mQ($mediumScreen) {
+      font-weight: bold;
+      font-size: 2.2rem;
+    }
+  }
+  ul {
+    display: none;
+    @include mQ($mediumScreen) {
+      display: flex;
+      flex-grow: 0.2;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li {
+      padding: 20px;
+      cursor: pointer;
+      &:hover {
+        background-color: $primaryColor;
+        color: $lightColor;
+      }
+    }
+    button {
+      font-size: $Mediumfont;
+      padding: 10px 15px;
+      color: $lightColor;
+      background-color: $secondaryColor;
+      border: none;
+      border-radius: 5px;
+    }
+  }
+
+  svg {
+    cursor: pointer;
+    font-size: 40px;
+    @include mQ($mediumScreen) {
+      display: none;
+    }
+  }
+}
+
+// Bread Crumb
+/***********************************************************/
+.bread-crumb {
+  background-color: $primaryColor;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      background-color: $darkColor;
+      padding: 5px;
+      margin: 5px;
+      border-radius: 50%;
+    }
+    p {
+      color: $lightColor;
+      font-size: $MediumfontSmallScreen;
+      font-weight: bold;
+    }
+  }
+}
+
+/***********************************************************/
+
+// Import Home Page Styling
+@import "./Scss/HomePage.scss";
+
+// Import DashBoard Styling
+@import "./Scss/DashBoard.scss";
+
+// Import DashBoard Styling
+@import "./Scss/Activity.scss";

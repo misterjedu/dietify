@@ -1,0 +1,140 @@
+.DashboardSectionOne {
+  margin: 40px 0;
+  .container {
+    display: flex;
+    flex-direction: column;
+    .DashboardStatusContainer {
+      background-color: $primaryColor;
+      margin: 10px;
+      padding: 10px;
+      box-shadow: 13px 9px 10px -8px rgba(191, 191, 191, 1);
+      border-radius: 10px;
+      .statusNumber {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: $MediumfontSmallScreen;
+        font-weight: bold;
+        p {
+          color: $lightColor;
+        }
+
+        button {
+          font-size: $MediumfontSmallScreen;
+          font-weight: bold;
+          padding: 5px 10px;
+          border: none;
+          border-radius: 3px;
+        }
+      }
+
+      p {
+        color: $lightColor;
+        font-size: $MediumfontSmallScreen;
+      }
+
+      p span {
+        font-size: $MediumfontSmallScreen;
+        color: $secondaryColor;
+        background-color: $lightColor;
+        padding: 3px;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  // Media Query for Medium Screen;
+  @include mQ($mediumScreen) {
+    .container {
+      flex-direction: row;
+      justify-content: space-between;
+      .DashboardStatusContainer {
+        width: 30%;
+        padding: 40px 5px;
+
+        .statusNumber {
+          margin-bottom: 30px;
+        }
+        p {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  // Media Query for Medium Screen;
+  @include mQ($largeScreen) {
+    .container {
+      .DashboardStatusContainer {
+        padding: 40px 30px;
+      }
+    }
+  }
+}
+
+/***********************************************************/
+// Daily Report Section and Weekly
+.dailyReport,
+.weeklyReport {
+  margin: 40px 0;
+  .container {
+    button {
+      color: $lightenSecondaryColor;
+      background-color: $darkColor;
+      padding: 20px 40px;
+      font-size: $MediumfontSmallScreen;
+      font-weight: bold;
+      border: none;
+      margin-bottom: 40px;
+    }
+
+    .dailyReportHeading,
+    .weeklyReportHeading {
+      display: flex;
+      align-items: center;
+      p {
+        color: $darkColor;
+        font-size: $Mediumfont;
+        font-weight: bold;
+        text-align: middle;
+      }
+      button {
+        background-color: $secondaryColor;
+        padding: 10px 30px;
+        margin: 0 20px;
+      }
+    }
+
+    .dailyReportCharts,
+    .weeklyReportCharts {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .dailyChart,
+      .weeklyChart {
+        width: 100%;
+        box-shadow: 13px 9px 10px -8px rgba(191, 191, 191, 1);
+        padding: 10px;
+        margin: 10px 0;
+        text-align: center;
+      }
+    }
+  }
+
+  // MEeida Query for Medium Screen
+  @include mQ($mediumScreen) {
+    .container {
+      .dailyReportCharts,
+      .weeklyReportCharts {
+        flex-direction: row;
+        width: 100%;
+        overflow-x: auto;
+        .dailyChart,
+        .weeklyChart {
+          width: clac(100% / 2);
+        }
+      }
+    }
+  }
+}
