@@ -1,9 +1,266 @@
+// Colors
+$primaryColor: #e92b80;
+$secondaryColor: #1fc5ae;
+$lightenPrimaryColor: #ffeef6;
+$lightenSecondaryColor: #e3fffb;
+$lightColor: #ffffff;
+$darkColor: #000000;
+$lightDarkColor1: #2c2c2c;
+$lightDarkColor2: #474747;
+
+/***********************************************************/
+
+// Font-Size
+
+$bigFont: 3rem;
+$Mediumfont: 1.5rem;
+$bigFontSmallScreen: 2.5rem;
+$MediumfontSmallScreen: 1.3rem;
+
+// Screen sizes
+$mediumScreen: 768px;
+$largeScreen: 992px;
+$extraLargeScreen: 1200px;
+
+/***********************************************************/
+
+// Reset
+
 .activity-section-one {
   .container {
     #activity-date {
       display: flex;
-      justify-content: space-evenly;
-      margin: 50px 0;
+      justify-content: center;
+      margin: 40px 0;
+
+      button {
+        background-color: $primaryColor;
+        color: $lightColor;
+        padding: 10px 20px;
+        border: none;
+        font-size: $MediumfontSmallScreen;
+        cursor: pointer;
+        margin-left: 30px;
+        box-shadow: 3px 3px 5px -2px rgba(66, 66, 66, 1);
+      }
+    }
+  }
+}
+
+// Section Two
+
+.activity-section-two {
+  .container {
+    display: flex;
+    flex-direction: column;
+    #activity-calories-consumed,
+    #activity-diet,
+    #activity-calories-burnt {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: $primaryColor;
+    }
+
+    // Calories Consumed
+    #activity-calories-consumed {
+      text-align: center;
+      h3 {
+        color: $lightColor;
+        font-size: $Mediumfont;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .activity-calories-consumed-items {
+        color: $lightColor;
+        margin: 10px 0;
+        font-size: $Mediumfont;
+        font-weight: bold;
+        text-align: center;
+      }
+      div {
+        display: flex;
+        justify-content: space-between;
+        p {
+          color: $lightColor;
+        }
+      }
+      button {
+        color: $primaryColor !important;
+        border: none;
+        padding: 5px;
+        font-weight: bold;
+      }
+    }
+
+    // Activity Diet
+    #activity-diet {
+      h3 {
+        color: $lightColor;
+        font-size: $Mediumfont;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      #activity-diet-carbs,
+      #activity-diet-protein,
+      #activity-diet-fat {
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p {
+          margin: 5px 0 5px 5px;
+          color: $lightColor;
+          font-weight: bold;
+          font-size: $MediumfontSmallScreen;
+          flex-grow: 0.1;
+        }
+        div {
+          flex-grow: 2;
+        }
+      }
+    }
+
+    // Calories Burnt
+    #activity-calories-burnt {
+      color: $lightColor;
+      margin: 10px 0;
+      font-size: $Mediumfont;
+      font-weight: bold;
+      text-align: center;
+      h3 {
+        color: $lightColor;
+        font-size: $Mediumfont;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      #activity-calorie-container {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+        p {
+          color: $lightColor;
+          font-size: $MediumfontSmallScreen;
+        }
+      }
+      button {
+        color: $primaryColor !important;
+        border: none;
+        padding: 5px;
+        font-size: $Mediumfont;
+        font-weight: bold;
+      }
+    }
+  }
+
+  // Medium Screen Query large Screnen
+  @include mQ($mediumScreen) {
+    .container {
+      flex-direction: row;
+      justify-content: space-between;
+      #activity-calories-consumed,
+      #activity-diet,
+      #activity-calories-burnt {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 5px;
+        padding: 10px;
+        flex-grow: 1;
+        width: 100%;
+
+        .activity-calories-consumed-items {
+          font-size: 1rem;
+        }
+
+        #activity-diet-carbs,
+        #activity-diet-protein,
+        #activity-diet-fat {
+          p {
+            font-size: 1rem;
+          }
+        }
+
+        #activity-calorie-container {
+          p {
+            font-size: 1rem;
+          }
+        }
+        button {
+          font-size: 1rem;
+          padding: 15px;
+        }
+      }
+    }
+  }
+
+  // Medium Screen Query large Screnen
+  @include mQ($extraLargeScreen) {
+    .container {
+      #activity-calories-consumed,
+      #activity-diet,
+      #activity-calories-burnt {
+        .activity-calories-consumed-items {
+          font-size: $Mediumfont;
+        }
+
+        #activity-diet-carbs,
+        #activity-diet-protein,
+        #activity-diet-fat {
+          p {
+            font-size: $Mediumfont;
+          }
+        }
+
+        #activity-calorie-container {
+          p {
+            font-size: $Mediumfont;
+          }
+        }
+        button {
+          font-size: $Mediumfont;
+          padding: 15px;
+        }
+      }
+    }
+  }
+}
+
+// Section Three
+.activity-section-three {
+  margin: 50px 0;
+  text-align: center;
+  .container {
+    margin-bottom: 50px;
+    padding: 30px 5px 5px 5px;
+    background-color: lighten($primaryColor, 40);
+
+    #meal-type {
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: $Mediumfont;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    #recommended-consumed-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+    }
+
+    button {
+      background-color: $primaryColor;
+      color: $lightColor;
+      padding: 15px 30px;
+      border: none;
+      margin-bottom: 50px;
+      font-size: $Mediumfont;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
     }
   }
 }
