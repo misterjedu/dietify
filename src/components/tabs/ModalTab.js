@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,7 +9,7 @@ import Box from "@material-ui/core/Box";
 import MealDbTable from "../tables/MealDbTable";
 import ModalSearchForm from "../Forms/ModalSearchForm";
 import AddMeal from "../miniComponents/AddMeal";
-import Button from "@material-ui/core/Button";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -31,34 +31,93 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    padding: "0 !important",
-    transform: "rotateX(180deg)"
-  },
-  flipContainer: {
-    overflow: "auto",
-    transform: "rotateX(180deg)"
-  }
+const useStyles = makeStyles((theme) => ({
+  root: {},
 }));
 
-function ModalTabs() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+// let typeOfMeal;
 
+function ModalTabs(props) {
+  // Match Props to Global Variables
+  const typeOfMeal = props.typeOfMeal;
+  const closeModal = props.close;
+
+  const classes = useStyles();
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const [step, setStep] = useState({
+    history: 1,
+    search: 1,
+  });
+
+  const nextHistoryStep = () => {
+    setStep({ ...step, history: step.history + 1 });
+  };
+
+  const prevHistoryStep = () => {
+    setStep({ ...step, history: step.history - 1 });
+  };
+
+  const nextSearchStep = () => {
+    setStep({ ...step, search: step.search + 1 });
+  };
+
+  const prevSearchStep = () => {
+    setStep({ ...step, search: step.search - 1 });
+  };
+
+  const [mealId, setMealId] = useState("");
+
+  const history = (props) => {
+    if (step.history === 1) {
+      return (
+        <MealDbTable
+          mealType="Meal"
+          nextStep={nextHistoryStep}
+          getMealId={getMealId}
+        />
+      );
+    } else if (step.history === 2) {
+      return (
+        <AddMeal
+          mealId={mealId}
+          typeOfMeal={typeOfMeal}
+          close={closeModal}
+          addButton={true}
+        >
+          <ArrowBackIcon onClick={prevHistoryStep} />
+        </AddMeal>
+      );
+    }
+  };
+
+  const search = () => {
+    if (step.search === 1) {
+      return <ModalSearchForm nextStep={nextSearchStep} />;
+    } else if (step.search === 2) {
+      return (
+        <AddMeal>
+          <ArrowBackIcon onClick={prevSearchStep} />
+        </AddMeal>
+      );
+    }
+  };
+
+  const getMealId = (id) => {
+    setMealId(id);
+    nextHistoryStep();
   };
 
   return (
@@ -77,16 +136,13 @@ function ModalTabs() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <MealDbTable mealType="Meal" />
+          {history}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <ModalSearchForm />
-          <MealDbTable mealType="Meal" />
+          {search}
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <AddMeal>
-            <Button> Add Meal </Button>
-          </AddMeal>
+          <AddMeal close={props.close} />
         </TabPanel>
       </div>
     </div>

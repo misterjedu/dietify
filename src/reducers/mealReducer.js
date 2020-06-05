@@ -1,62 +1,101 @@
-import uuid from "uuid/v1";
-
-function createData(name, calories, fat, carbs, protein, id, edit, del) {
-  return { name, calories, fat, carbs, protein, id, edit, del };
+function createData(
+  mealType,
+  name,
+  calories,
+  carbs,
+  protein,
+  fat,
+  id,
+  qty,
+  key,
+  edit,
+  del
+) {
+  return {
+    mealType,
+    name,
+    calories,
+    carbs,
+    protein,
+    fat,
+    id,
+    qty,
+    key,
+    edit,
+    del,
+  };
 }
 
 const initState = {
-  breakFast: [
-    createData("Bread", 159, 6.0, 24, 4.0, uuid()),
-    createData("Egg", 159, 6.0, 24, 4.0, uuid()),
-    createData("Rice", 159, 6.0, 24, 4.0, uuid())
-  ],
-  launch: [
-    createData("Bread", 159, 6.0, 24, 4.0, uuid()),
-    createData("Pap", 159, 6.0, 24, 4.0, uuid()),
-    createData("Milk", 159, 6.0, 24, 4.0, uuid()),
-    createData("Sugar", 159, 6.0, 24, 4.0, uuid())
-  ],
-  dinner: [createData("Yam", 159, 6.0, 24, 4.0, uuid())],
-  snack: [createData("Chin Chin", 159, 6.0, 24, 4.0, uuid())]
+  meal: [],
+  doesMealExist: "",
 };
 
+// Delete Meal
+
 const mealReducer = (state = initState, action) => {
-  if (action.type === "DELETE_MEAL" && action.mealType === "Break Fast") {
-    let newBreakFast = state.breakFast.filter(meal => {
-      return action.id !== meal.id;
+  if (action.type === "DELETE_MEAL") {
+    let newMeal = state.meal.filter((meal) => {
+      return action.key !== meal.key;
     });
     return {
       ...state,
-      breakFast: newBreakFast
+      meal: newMeal,
     };
   }
-  if (action.type === "DELETE_MEAL" && action.mealType === "Launch") {
-    let newLaunch = state.launch.filter(meal => {
-      return action.id !== meal.id;
-    });
+
+  // Add Meal
+  if (action.type === "ADD_MEAL") {
+    // console.log(action);
+    const newMeal = [
+      ...state.meal,
+      createData(
+        action.mealType,
+        action.name,
+        action.calories,
+        action.carbs,
+        action.protein,
+        action.fat,
+        action.id,
+        action.qty,
+        action.key
+      ),
+    ];
     return {
       ...state,
-      launch: newLaunch
+      meal: newMeal,
+      doesMealExist: false,
     };
   }
-  if (action.type === "DELETE_MEAL" && action.mealType === "Dinner") {
-    let newDinner = state.dinner.filter(meal => {
-      return action.id !== meal.id;
+
+  // Update Meal
+
+  if (action.type === "UPDATE_MEAL") {
+    console.log(action);
+    let upDatedMeal = state.meal.filter((item) => {
+      return action.key !== item.key;
     });
+
+    const newMeal = [
+      createData(
+        action.mealType,
+        action.name,
+        action.calories,
+        action.carbs,
+        action.protein,
+        action.fat,
+        action.id,
+        action.qty,
+        action.key
+      ),
+      ...upDatedMeal,
+    ];
     return {
       ...state,
-      dinner: newDinner
+      meal: newMeal,
     };
   }
-  if (action.type === "DELETE_MEAL" && action.mealType === "Snack") {
-    let newSnack = state.snack.filter(meal => {
-      return action.id !== meal.id;
-    });
-    return {
-      ...state,
-      snack: newSnack
-    };
-  }
+
   return state;
 };
 

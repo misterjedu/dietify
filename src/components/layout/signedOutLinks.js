@@ -10,7 +10,7 @@ const SignedOutLinks = () => {
       <li>
         <NavLink to="/activity">Activity </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink to="/">Settings </NavLink>
       </li>
       <li>
@@ -18,7 +18,7 @@ const SignedOutLinks = () => {
       </li>
       <li>
         <NavLink to="/"> Logout</NavLink>
-      </li>
+      </li> */}
     </ul>
   );
 };

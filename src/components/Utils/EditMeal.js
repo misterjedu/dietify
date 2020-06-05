@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import EditIcon from "@material-ui/icons/Edit";
-import Button from "@material-ui/core/Button";
 import AddMeal from "../miniComponents/AddMeal";
 
 function getModalStyle() {
@@ -12,11 +11,11 @@ function getModalStyle() {
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
+    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     height: "80%",
@@ -25,11 +24,11 @@ const useStyles = makeStyles(theme => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    overflow: "scroll"
-  }
+    overflow: "scroll",
+  },
 }));
 
-const EditMeal = () => {
+const EditMeal = (props) => {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
@@ -44,7 +43,7 @@ const EditMeal = () => {
 
   return (
     <div>
-      <EditIcon onClick={handleOpen} />
+      <EditIcon style={props.styleCss} onClick={handleOpen} />
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -52,9 +51,13 @@ const EditMeal = () => {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <AddMeal>
-            <Button variant="outlined"> Update </Button>
-          </AddMeal>
+          <AddMeal
+            mealId={props.mealId}
+            keyid={props.keyid}
+            close={() => handleClose()}
+            editMeal={true}
+            typeOfMeal={props.typeOfMeal}
+          />
         </div>
       </Modal>
     </div>

@@ -6,7 +6,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import ConfirmDelete from "../dialogs/ConfirmDelete";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -19,25 +18,41 @@ import { connect } from "react-redux";
 
 const styles = {
   editDel: {
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 };
 
 let mealIndex;
 let mealType;
 let mealVar;
 
-const MealTable = function(props) {
+const MealTable = function (props) {
   const [open, setOpen] = useState(false);
 
-  if (props.meal === "Break Fast") {
-    mealType = props.breakFast;
-  } else if (props.meal === "Launch") {
-    mealType = props.launch;
-  } else if (props.meal === "Dinner") {
-    mealType = props.dinner;
-  } else if (props.meal === "Snack") {
-    mealType = props.snack;
+  let breakFastList = (mealType = props.mealFromRed.filter((item) => {
+    return item.mealType === "Break Fast";
+  }));
+
+  let launchList = props.mealFromRed.filter((item) => {
+    return item.mealType === "Launch";
+  });
+
+  let dinnerList = props.mealFromRed.filter((item) => {
+    return item.mealType === "Dinner";
+  });
+
+  let snackList = props.mealFromRed.filter((item) => {
+    return item.mealType === "Snack";
+  });
+
+  if (props.typeOfMeal === "Break Fast") {
+    mealType = breakFastList;
+  } else if (props.typeOfMeal === "Launch") {
+    mealType = launchList;
+  } else if (props.typeOfMeal === "Dinner") {
+    mealType = dinnerList;
+  } else if (props.typeOfMeal === "Snack") {
+    mealType = snackList;
   }
 
   const handleClose = () => {
@@ -49,15 +64,11 @@ const MealTable = function(props) {
     props.deleteMeal(mealIndex, mealVar);
   };
 
-  const handleDelete = (id, meal) => {
-    mealIndex = id;
+  const handleDelete = (key, meal) => {
+    mealIndex = key;
     mealVar = meal;
 
     setOpen(true);
-  };
-
-  const handleEdit = e => {
-    // confirm("You sure");
   };
 
   return (
@@ -67,33 +78,41 @@ const MealTable = function(props) {
           <TableHead>
             <TableRow>
               <TableCell>
-                {props.meal} ({mealType.length})
+                {props.typeOfMeal} ({mealType.length})
               </TableCell>
-              <TableCell align="center">Calories</TableCell>
-              <TableCell align="center">Fat&nbsp;(g)</TableCell>
+              <TableCell align="center">Calories &nbsp;(Kcal)</TableCell>
               <TableCell align="center">Carbs&nbsp;(g)</TableCell>
               <TableCell align="center">Protein&nbsp;(g)</TableCell>
+              <TableCell align="center">Fat&nbsp;(g)</TableCell>
               <TableCell align="center">Edit</TableCell>
               <TableCell align="center">Del</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {mealType.map(row => (
-              <TableRow key={row.id}>
+            {mealType.map((row) => (
+              <TableRow key={row.key}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.name} ({row.qty}g)
                 </TableCell>
-                <TableCell align="center">{row.fat}</TableCell>
-                <TableCell align="center">{row.carbs}</TableCell>
                 <TableCell align="center">{row.calories}</TableCell>
+                <TableCell align="center">{row.carbs}</TableCell>
                 <TableCell align="center">{row.protein}</TableCell>
-                <TableCell align="center">{<EditMeal></EditMeal>}</TableCell>
+                <TableCell align="center">{row.fat}</TableCell>
+                <TableCell align="center">
+                  <EditMeal
+                    styleCss={styles.editDel}
+                    mealId={row.id}
+                    keyid={row.key}
+                    typeOfMeal={props.typeOfMeal}
+                  />
+                </TableCell>
                 <TableCell align="center">
                   <HighlightOffIcon
                     id={row.id}
+                    keyId={row.key}
                     style={styles.editDel}
                     onClick={() => {
-                      handleDelete(row.id, props.meal);
+                      handleDelete(row.key, props.meal);
                     }}
                   />
                 </TableCell>
@@ -108,8 +127,8 @@ const MealTable = function(props) {
                   <DialogTitle id="alert-dialog-title">Delete?</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                      Are you sure you want to delete {row.name} This cannot be
-                      undone. Click Continue to delete
+                      Are you sure you want to delete? This cannot be undone.
+                      Click Yes to delete
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
@@ -122,7 +141,7 @@ const MealTable = function(props) {
                       }}
                       color="secondary"
                     >
-                      Continue
+                      Yes
                     </Button>
                   </DialogActions>
                 </Dialog>
@@ -135,20 +154,18 @@ const MealTable = function(props) {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
+  // console.log(state);
   return {
-    breakFast: state.meal.breakFast,
-    launch: state.meal.launch,
-    dinner: state.meal.dinner,
-    snack: state.meal.snack
+    mealFromRed: state.meal.meal,
   };
 };
 
-const mapDispacthToProps = dispatch => {
+const mapDispacthToProps = (dispatch) => {
   return {
-    deleteMeal: (id, mealType) => {
-      dispatch({ type: "DELETE_MEAL", id: id, mealType: mealType });
-    }
+    deleteMeal: (key, mealType) => {
+      dispatch({ type: "DELETE_MEAL", key: key, mealType: mealType });
+    },
   };
 };
 

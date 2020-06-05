@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./signedInLinks";
 import SignedOutLinks from "./signedOutLinks";
 import MenuIcon from "@material-ui/icons/Menu";
+import SignedInLinks from "./signedInLinks";
 
 const NavBar = () => {
   return (
@@ -11,6 +12,7 @@ const NavBar = () => {
         Dietify
       </Link>
       <SignedOutLinks />
+      <SignedInLinks />
       <MenuIcon />
     </nav>
   );

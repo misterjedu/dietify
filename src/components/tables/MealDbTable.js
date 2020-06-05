@@ -36,25 +36,32 @@ const MealDbTable = props => {
             <TableRow>
               <TableCell>Meal</TableCell>
               <TableCell align="center">Calories</TableCell>
-              <TableCell align="center">Fat&nbsp;(g)</TableCell>
               <TableCell align="center">Carbs&nbsp;(g)</TableCell>
               <TableCell align="center">Protein&nbsp;(g)</TableCell>
+              <TableCell align="center">Fat&nbsp;(g)</TableCell>
               <TableCell align="center">Add</TableCell>
               <TableCell align="center">Del</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.meal.map(row => (
-              <TableRow key={row.name}>
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="center">{row.fat}</TableCell>
-                <TableCell align="center">{row.carbs}</TableCell>
                 <TableCell align="center">{row.calories}</TableCell>
+                <TableCell align="center">{row.carbs}</TableCell>
                 <TableCell align="center">{row.protein}</TableCell>
+                <TableCell align="center">{row.fat}</TableCell>
                 <TableCell align="center">
-                  <button className={classes.addBtn}>Add</button>
+                  <button
+                    className={classes.addBtn}
+                    onClick={() => {
+                      props.getMealId(row.id);
+                    }}
+                  >
+                    Add
+                  </button>
                 </TableCell>
                 <TableCell align="center">
                   {(row.del, (<HighlightOffIcon />))}

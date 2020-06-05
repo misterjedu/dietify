@@ -10,18 +10,18 @@ function getModalStyle() {
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
+    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: "80%",
     backgroundColor: theme.palette.background.paper,
     padding: 10,
     height: "80%",
-    overflow: "auto"
+    overflow: "auto",
   },
   button: {
     margin: "5px",
@@ -32,11 +32,13 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     cursor: "pointer",
     borderRadius: 3,
-    boxShadow: "3px 3px 5px -2px rgba(66,66,66,1)"
-  }
+    boxShadow: "3px 3px 5px -2px rgba(66,66,66,1)",
+  },
 }));
 
 function PopModal(props) {
+  // console.log(props);
+
   const classes = useStyles();
 
   const [modalStyle] = React.useState(getModalStyle);
@@ -63,7 +65,8 @@ function PopModal(props) {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <ModalTabs />
+          <ModalTabs typeOfMeal={props.typeOfMeal} close={handleClose} />
+
           <button className={classes.button} onClick={handleClose} index={2}>
             Close
           </button>

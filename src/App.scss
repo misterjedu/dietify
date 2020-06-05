@@ -68,7 +68,7 @@ body {
 /***********************************************************/
 // NavBar
 .navbar {
-  color: $darkColor;
+  // color: $darkColor;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,14 +90,17 @@ body {
       flex-grow: 0.2;
       justify-content: space-between;
       align-items: center;
+      &:hover {
+        color: $primaryColor !important;
+      }
     }
 
     li {
+      color: $primaryColor;
       padding: 20px;
       cursor: pointer;
       &:hover {
-        background-color: $primaryColor;
-        color: $lightColor;
+        color: $primaryColor !important;
       }
     }
     button {
