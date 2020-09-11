@@ -18,7 +18,7 @@ const App = function () {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/dashboard" component={DashBoard} />
           <Route exact path="/activity" component={Activity} />
-          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/Signin" component={SignIn} />
           <Route exact path="/signup" component={SignUp} />
         </Switch>
         <Footer />
